@@ -1,3 +1,5 @@
+// Worked: Alex Shevchenko and Ivan Makovetskyi
+
 // Include important C++ libraries here
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
@@ -50,6 +52,7 @@ int main()
 			    {
 				///fourth click
 				///push back to points vector
+				points.push_back(Vector2f(event.mouseButton.x, event.mouseButton.y));
 			    }
 			}
 		    }
@@ -70,6 +73,16 @@ int main()
 		    ///select random vertex
 		    ///calculate midpoint between random vertex and the last point in the vector
 		    ///push back the newly generated coord.
+
+			for (int i = 0; i < 10; i++)
+			{
+				int randNum = rand() % 3;
+				Vector2f lastPoint = points.back();
+				Vector2f vertex = vertices.at(randNum);
+
+				Vector2f newPoint((lastPoint.x + vertex.x) / 2, (lastPoint.y + vertex.y) /2);
+				point.push_back(newPoint);
+			}
 		}
 	
 		/*
@@ -85,7 +98,14 @@ int main()
 		    rect.setFillColor(Color::Blue);
 		    window.draw(rect);
 		}
-		///TODO:  Draw points
+		
+		for(int i = 0; i < points.size(); i++)
+		{
+		    RectangleShape dot(Vector2f(2,2));
+		    dot.setPosition(Vector2f(points[i].x, points[i].y));
+		    dot.setFillColor(Color::Green);
+		    window.draw(dot);
+		}
 		window.display();
 	}
 }
