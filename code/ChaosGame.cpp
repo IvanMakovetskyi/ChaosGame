@@ -21,6 +21,17 @@ int main()
 	vector<Vector2f> vertices;
 	vector<Vector2f> points;
 
+	Text infoText;
+
+	Font font;
+	font.loadFromFile("fonts/KOMIKAP_.ttf");
+
+	infoText.setFont(font);
+	infoText.setString("You need to click on 3 places this will create \n the 3 vertecies and then you need to pick initial point");
+	infoText.setCharacterSize(25);
+	infoText.setFillColor(Color::White);
+	infoText.setPosition(50.f,50.f);
+
 	while (window.isOpen())
 	{
 		/*
@@ -28,6 +39,7 @@ int main()
 		Handle the players input
 		****************************************
 		*/
+
 		Event event;
 		while (window.pollEvent(event))
 		{
@@ -52,6 +64,7 @@ int main()
 			    {
 				///fourth click
 				///push back to points vector
+				infoText.setString("Now it's working:");
 				points.push_back(Vector2f(event.mouseButton.x, event.mouseButton.y));
 			    }
 			}
@@ -81,7 +94,7 @@ int main()
 				Vector2f vertex = vertices.at(randNum);
 
 				Vector2f newPoint((lastPoint.x + vertex.x) / 2, (lastPoint.y + vertex.y) /2);
-				point.push_back(newPoint);
+				points.push_back(newPoint);
 			}
 		}
 	
@@ -91,6 +104,8 @@ int main()
 		****************************************
 		*/
 		window.clear();
+		window.draw(infoText);
+
 		for(int i = 0; i < vertices.size(); i++)
 		{
 		    RectangleShape rect(Vector2f(10,10));
